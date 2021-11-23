@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 
 import Form from "./Form";
+import ReadOnlyRow from "./ReadOnlyRow";
 
 
 export default function Table() {
@@ -13,16 +14,6 @@ export default function Table() {
             .then(data => setContacts(data))
     }, []);
 
-    const displayContacts = contacts.map((contact) => {
-      return (
-        <tr key={contact.id}>
-          <td>{contact.fullName}</td>
-          <td>{contact.cityState}</td>
-          <td>{contact.phoneNumber}</td>
-          <td>{contact.email}</td>
-        </tr>
-      );
-    });
 
     function addContact(newContact) {
         const updatedContacts = [...contacts, newContact]
@@ -41,7 +32,8 @@ export default function Table() {
             </tr>
           </thead>
           <tbody>
-            {displayContacts}
+                {contacts.map((contact) => <ReadOnlyRow contact={contact} />
+                )}
           </tbody>
             </table>
             <Form addContact={addContact}/>
