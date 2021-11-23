@@ -13,7 +13,7 @@ export default function Table() {
             .then(data => setContacts(data))
     }, []);
 
-    function handleSubmit(formData) {
+    function addContact(formData) {
         setContacts(...contacts, formData)
     }
 
@@ -41,7 +41,7 @@ export default function Table() {
             })}
           </tbody>
             </table>
-            <Form handleSubmit={handleSubmit}/>
+            <Form addContact={addContact}/>
       </div>
     );
 }

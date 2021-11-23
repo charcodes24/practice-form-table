@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export default function Form({ handleSubmit }) {
+export default function Form({ addContact }) {
     const [formData, setFormData] = useState({
         fullName: "",
         cityState: "",
@@ -15,6 +15,19 @@ export default function Form({ handleSubmit }) {
         })
     }
 
+    function handleSubmit(e) {
+        e.preventDefault()
+        fetch("http://localhost:3001/contacts", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            },
+            body: JSON.stringify(formData)
+        })
+            .then(res => res.json())
+        .then(data => addContact(data))
+    }
 
 
     return (
