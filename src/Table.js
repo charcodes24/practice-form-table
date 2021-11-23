@@ -5,7 +5,7 @@ import Form from "./Form";
 
 export default function Table() {
     const [contacts, setContacts] = useState([])
-    console.log(contacts)
+    console.log("CONTACTS", contacts)
 
     useEffect(() => {
         fetch("http://localhost:3001/contacts")
@@ -13,8 +13,20 @@ export default function Table() {
             .then(data => setContacts(data))
     }, []);
 
-    function addContact(formData) {
-        setContacts(...contacts, formData)
+    const displayContacts = contacts.map((contact) => {
+      return (
+        <tr key={contact.id}>
+          <td>{contact.fullName}</td>
+          <td>{contact.cityState}</td>
+          <td>{contact.phoneNumber}</td>
+          <td>{contact.email}</td>
+        </tr>
+      );
+    });
+
+    function addContact(newContact) {
+        const updatedContacts = [...contacts, newContact]
+        setContacts(updatedContacts)
     }
 
     return (
@@ -29,16 +41,7 @@ export default function Table() {
             </tr>
           </thead>
           <tbody>
-            {contacts.map((contact) => {
-              return (
-                <tr>
-                  <td>{contact.fullName}</td>
-                  <td>{contact.cityState}</td>
-                  <td>{contact.phoneNumber}</td>
-                  <td>{contact.email}</td>
-                </tr>
-              );
-            })}
+            {displayContacts}
           </tbody>
             </table>
             <Form addContact={addContact}/>
