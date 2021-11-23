@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export default function Form() {
+export default function Form({ handleSubmit }) {
     const [formData, setFormData] = useState({
         fullName: "",
         cityState: "",
@@ -20,7 +20,7 @@ export default function Form() {
     return (
       <div>
         <h2>Add a Contact</h2>
-        <form>
+        <form onSubmit={handleSubmit}>
           <input
           onChange={handleInput}
             type="text"

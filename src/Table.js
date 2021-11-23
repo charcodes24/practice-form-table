@@ -1,13 +1,21 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import Form from "./Form";
 
-import data from "./data.json"
-
 
 export default function Table() {
-    const [contacts, setContacts] = useState(data)
+    const [contacts, setContacts] = useState([])
     console.log(contacts)
+
+    useEffect(() => {
+        fetch("http://localhost:3001/contacts")
+            .then(res => res.json())
+            .then(data => setContacts(data))
+    }, []);
+
+    function handleSubmit(formData) {
+        setContacts(...contacts, formData)
+    }
 
     return (
       <div>
@@ -33,7 +41,7 @@ export default function Table() {
             })}
           </tbody>
             </table>
-            <Form />
+            <Form handleSubmit={handleSubmit}/>
       </div>
     );
 }
