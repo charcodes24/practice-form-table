@@ -17,7 +17,16 @@ export default function Table() {
           </tr>
         </thead>
         <tbody>
-            
+                {contacts.map((contact) => {
+                    return (
+                      <tr>
+                        <td>{contact.fullName}</td>
+                        <td>{contact.cityState}</td>
+                        <td>{contact.phoneNumber}</td>
+                        <td>{contact.email}</td>
+                      </tr>
+                    );
+            })}
         </tbody>
       </table>
     );
