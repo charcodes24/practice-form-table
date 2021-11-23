@@ -7,7 +7,7 @@ import ReadOnlyRow from "./ReadOnlyRow";
 
 export default function Table() {
     const [contacts, setContacts] = useState([])
-    console.log("CONTACTS", contacts)
+    const [editContact, setEditContact] = useState(null)
 
     useEffect(() => {
         fetch("http://localhost:3001/contacts")
@@ -21,6 +21,11 @@ export default function Table() {
         setContacts(updatedContacts)
     }
 
+    function handleEditClick(e, id) {
+        e.preventDefault()
+        setEditContact(id)
+    }
+
     return (
       <div>
         <form>
@@ -30,14 +35,18 @@ export default function Table() {
                 <th>Name</th>
                 <th>Address</th>
                 <th>Phone Number</th>
-                <th>Email</th>
+                            <th>Email</th>
+                            <th>Actions</th>
               </tr>
             </thead>
             <tbody>
               {contacts.map((contact) => (
                 <Fragment>
-                  <EditableRow />
-                  <ReadOnlyRow contact={contact} />
+                  {editContact === contact.id ? (
+                    <EditableRow />
+                  ) : (
+                    <ReadOnlyRow contact={contact} handleEditClick={handleEditClick}/>
+                  )}
                 </Fragment>
               ))}
             </tbody>
