@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, Fragment } from "react";
+import EditableRow from "./EditableRow";
 
 import Form from "./Form";
 import ReadOnlyRow from "./ReadOnlyRow";
@@ -22,21 +23,27 @@ export default function Table() {
 
     return (
       <div>
-        <table>
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Address</th>
-              <th>Phone Number</th>
-              <th>Email</th>
-            </tr>
-          </thead>
-          <tbody>
-                {contacts.map((contact) => <ReadOnlyRow contact={contact} />
-                )}
-          </tbody>
-            </table>
-            <Form addContact={addContact}/>
+        <form>
+          <table>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Address</th>
+                <th>Phone Number</th>
+                <th>Email</th>
+              </tr>
+            </thead>
+            <tbody>
+              {contacts.map((contact) => (
+                <Fragment>
+                  <EditableRow />
+                  <ReadOnlyRow contact={contact} />
+                </Fragment>
+              ))}
+            </tbody>
+          </table>
+        </form>
+        <Form addContact={addContact} />
       </div>
     );
 }
