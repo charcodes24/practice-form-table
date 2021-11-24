@@ -1,38 +1,44 @@
 import React from 'react'
 
-const EditableRow = () => {
+const EditableRow = ({ contact, handleInput }) => {
+    const { fullName, cityState, phoneNumber, email } = contact
+    
     return (
       <tr>
         <td>
           <input
+          onChange={handleInput}
             type="text"
             required="required"
-            placeholder="Enter a name..."
+            placeholder={fullName}
             name="fullName"
           />
         </td>
 
         <td>
           <input
+          onChange={handleInput}
             type="text"
             required="required"
-            placeholder="Enter a city & state..."
+            placeholder={cityState}
             name="cityState"
           />
         </td>
         <td>
           <input
+          onChange={handleInput}
             type="text"
             required="required"
-            placeholder="Enter a phone number..."
+            placeholder={phoneNumber}
             name="phoneNumber"
           />
         </td>
         <td>
           <input
+          onChange={handleInput}
             type="text"
             required="required"
-            placeholder="Enter an email..."
+            placeholder={email}
             name="email"
           />
         </td>

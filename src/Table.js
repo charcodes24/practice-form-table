@@ -9,6 +9,13 @@ export default function Table() {
     const [contacts, setContacts] = useState([])
     const [editContact, setEditContact] = useState(null)
 
+    const [formData, setFormData] = useState({
+      fullName: "",
+      cityState: "",
+      phoneNumber: "",
+      email: "",
+    });
+
     useEffect(() => {
         fetch("http://localhost:3001/contacts")
             .then(res => res.json())
@@ -19,6 +26,13 @@ export default function Table() {
     function addContact(newContact) {
         const updatedContacts = [...contacts, newContact]
         setContacts(updatedContacts)
+    }
+
+    function handleInput(e) {
+      setFormData({
+        ...formData,
+        [e.target.name]: e.target.value,
+      });
     }
 
     function handleEditClick(e, id) {
@@ -43,7 +57,7 @@ export default function Table() {
               {contacts.map((contact) => (
                 <Fragment>
                   {editContact === contact.id ? (
-                    <EditableRow />
+                          <EditableRow contact={contact} handleInput={handleInput}/>
                   ) : (
                     <ReadOnlyRow contact={contact} handleEditClick={handleEditClick}/>
                   )}
@@ -52,7 +66,7 @@ export default function Table() {
             </tbody>
           </table>
         </form>
-        <Form addContact={addContact} />
+            <Form addContact={addContact} formData={formData} handleInput={handleInput}/>
       </div>
     );
 }
